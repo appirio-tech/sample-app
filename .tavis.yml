@@ -1,0 +1,54 @@
+language: node_js
+node_js:
+- 5.3.0
+install:
+- npm install
+script:
+- webpack -p --bail --progress --build
+sudo: false
+deploy:
+- provider: s3
+  cache_control: private, no-store, no-cache, must-revalidate, max-age=0
+  detect_encoding: true
+  access_key_id: $DEV_AWS_KEY
+  secret_access_key: $DEV_AWS_SECRET
+  bucket: sample.topcoder-dev.com
+  skip_cleanup: true
+  local_dir: dist
+  on:
+    branch: dev
+- provider: s3
+  cache_control: private, no-store, no-cache, must-revalidate, max-age=0
+  detect_encoding: true
+  access_key_id: $QA_AWS_KEY
+  secret_access_key: $QA_AWS_SECRET
+  bucket: sample.topcoder-qa.com
+  skip_cleanup: true
+  local_dir: dist
+  on:
+    branch: qa
+- provider: s3
+  cache_control: private, no-store, no-cache, must-revalidate, max-age=0
+  detect_encoding: true
+  access_key_id: $MASTER_AWS_KEY
+  secret_access_key: $MASTER_AWS_SECRET
+  bucket: sample.topcoder.com
+  skip_cleanup: true
+  local_dir: dist
+  on:
+    branch: master
+env:
+  matrix:
+  - CXX=g++-4.8
+  global:
+  # DEV_AWS_KEY
+  - secure: "vmS6JnYZ9210zdnr/gtobE6VnxQuVWAASNMrhIXyzZfU26gELBN18tgWczESAPLex/gkUKDrmv7IhUvxIIeCH1IznwPmlZXsgCm4IGfMYy7+Fxe+UxbHuJ5oyM4rfxAdp5lYdNMbcopY4F3e7H95SleC+2PdFuuTrWuvHIm8CzaqPV/NndTtdiO+iVkO9usgiOywZuV6Be13PKP4K06JwiNrKbiGRxkVZyVJLlqMPaLUaA/gO7+U3pm/xpRZxxlzVHdAq/QzHzQFdZhijfzjPvcX7qwP2PYfjTxpm47okICldtEZ7v1yWQvlfoQYWGnBZEPgUez0nvk7T3QmQ7dlkH1bw+oiosrLT4cmHd2N3B0n/N33pSu5600DULSK011p+wLna9dDRGoDrLsxqK/Sm5EUySu+6V82QN9z5mqVAXb6fhUmQkC6dN6+qo575U3oumDrlidtR0t0yN7EkVSP3YrDlb90ciNK289oeyNX1SqlZ2Q7IACgWAdb6C7wKDAHG5hML6EKo2vOhvwPyX9YIYowpe5Ej98QSersRhEbutMZZpDsOO1xVWKW6SQjm0eZjThpkUbKpbI3J35BkDZ/tNug42gAMkH3dAdqDp+BE3HRN+L8dKG3zDaJ9TqOjdk82sl7tijozbAcfvTdLXwA/HGi7XMxy9/TjG12j1MS3qE="
+  # DEV_AWS_SECRET
+  - secure: "mjs2tfPcqbKTbPki3MwfIQKh91PVyukBMaqmjOnbuSF0BgUb8gTw6GEjiBDgqNr1udvNzAmHXT1fj9jgpIMmO12hX3xtpsrRfesO1kxRzAE/13MinriOuqQ6jpgNK3vXmvuIss+/tMgcl6yTTpJeNBHntaRVXICl//6cw1ZsQF0epZcWf6Sc0/GzSDVI9zbotvMsAFU6qH70JvqP87eWzvIEX+2JmMQIrfqoBnUFGuOWIaH0fh3eFOBYhvIh4HFqKAhhMqi2mT7TBT/i6HyKF5s5NJ6F5mGGg6RS7aTzARDmUpp0l0yQvP+kpDAQRtGR1KOW/Jg8EMIM5+D/3gxErolLDfXxnwhHk1J6Pz3y2YZKX5EZOQfw17PTJX4A7IUMLvYaLK/D4sayVM89rE/qOC70ciIL2Jg6nQWGz807sBr0y9bnUJZ8kOIrtfngE5D2n19U+5gpBxBzZyIPV4DOWANA5hHK5urVph5UCslv8L8xF2Ymg0TRBPBLPwIfy57H52Wik0iOIpM5JMdkz7g8sme3Ab1ypnPqNvuOywvhP4Motuo3Tb+jAG9r8ryB7YQPIXP1+n+BS2N4rso1XQDyagIgQ6mxVU4Y3kqi97DooRFMjThLsXvKQUU4vvTi3nQ8n+JnsjMNLJvxlJJJGocoOhr7GncTky+7uPgaQ50DBw4="
+  
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - g++-4.8

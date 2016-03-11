@@ -1,0 +1,6 @@
+p
+  | Hello {{ vm.username }}
+
+p
+  button.action(ng-click="vm.login()", ng-show='!vm.isLoggedIn()') login
+  button.action(ng-click="vm.logout()", ng-show='vm.isLoggedIn()') logout
