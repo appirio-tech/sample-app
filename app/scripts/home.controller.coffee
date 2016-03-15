@@ -6,6 +6,7 @@ HomeController = (
   $window
   $location
   $state
+  $stateParams
   $cookies
   constants
   AuthService
@@ -40,14 +41,14 @@ HomeController = (
   # - tcjwt: v2 jwt
   # - tcsso: sso token
   init = ->
-    if $location.search().jwt
-      TokenService.setAppirioJWT $location.search().jwt
+    if $stateParams.jwt
+      TokenService.setAppirioJWT $stateParams.jwt
       if AuthService.isLoggedIn()  
         vm.username = TokenService.decodeToken().handle
-    if $location.search().tcjwt
-      $cookies.put 'tcjwt', $location.search().tcjwt, constants.COOKIE_SPEC.create()
-    if $location.search().tcsso
-      $cookies.put 'tcsso', $location.search().tcsso, constants.COOKIE_SPEC.create()
+    if $stateParams.tcjwt
+      $cookies.put 'tcjwt', $stateParams.tcjwt, constants.COOKIE_SPEC.create()
+    if $stateParams.tcsso
+      $cookies.put 'tcsso', $stateParams.tcsso, constants.COOKIE_SPEC.create()
     $state.go 'home'
     vm
   
@@ -60,6 +61,7 @@ HomeController.$inject = [
   '$window'
   '$location'
   '$state'
+  '$stateParams'
   '$cookies'
   'constants'
   'AuthService'
