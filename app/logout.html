@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+  </head>
+  <body>
+    Logging out..
+    <script type="text/javascript">
+      if(localStorage) {
+        localStorage.removeItem('auth0Jwt');
+        localStorage.removeItem('userJWTToken');
+        localStorage.removeItem('userRefreshJWTToken');
+        deleteCookie('tcjwt');
+        deleteCookie('tcsso');
+        window.location.replace('/');
+      }
+      
+      function deleteCookie(cookie) {
+        var domain = location.hostname.substring(location.hostname.indexOf('.'));
+        document.cookie = cookie + "=; path=/; domain=" + domain + "; expires=" + (new Date()).toGMTString()+"; ";
+      }
+    </script>
+  </body>
+</html>

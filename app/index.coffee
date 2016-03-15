@@ -6,6 +6,7 @@ __webpack_public_path__ = publicPath
 
 require 'angular'
 require 'angular-ui-router'
+require 'angular-cookies'
 
 require './sample.module'
 
