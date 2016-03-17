@@ -43,12 +43,14 @@ HomeController = (
   init = ->
     if $stateParams.jwt
       TokenService.setAppirioJWT $stateParams.jwt
-      if AuthService.isLoggedIn()  
-        vm.username = TokenService.decodeToken().handle
     if $stateParams.tcjwt
       $cookies.put 'tcjwt', $stateParams.tcjwt, constants.COOKIE_SPEC.create()
     if $stateParams.tcsso
       $cookies.put 'tcsso', $stateParams.tcsso, constants.COOKIE_SPEC.create()
+    # username in jwt
+    if AuthService.isLoggedIn()
+      vm.username = TokenService.decodeToken().handle
+
     $state.go 'home'
     vm
   
