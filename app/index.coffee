@@ -10,7 +10,6 @@ require 'angular-cookies'
 
 require './sample.module'
 
-require 'appirio-tech-ng-api-services'
 require 'appirio-tech-ng-auth'
 
 requireContextFiles = (files) ->
