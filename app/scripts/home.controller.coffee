@@ -36,17 +36,13 @@ HomeController = (
     $window.location = accountsUrl
   
   # handle callback
-  # https://sample.topcoder-dev.com/?jwt=.....&tcjwt=....&tcsso=.....
+  # https://sample.topcoder-dev.com/?jwt=.....
   # - jwt  : v3 jwt
   # - tcjwt: v2 jwt
   # - tcsso: sso token
   init = ->
     if $stateParams.jwt
       TokenService.setAppirioJWT $stateParams.jwt
-    if $stateParams.tcjwt
-      $cookies.put 'tcjwt', $stateParams.tcjwt, constants.COOKIE_SPEC.create()
-    if $stateParams.tcsso
-      $cookies.put 'tcsso', $stateParams.tcsso, constants.COOKIE_SPEC.create()
     # username in jwt
     if AuthService.isLoggedIn()
       vm.username = TokenService.decodeToken().handle
