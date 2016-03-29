@@ -19,10 +19,10 @@ HomeController = (
     AuthService.isLoggedIn()
   
   # redirect to accounts.topcoder.com to log in to the system.
-  # with specifying the callback url on 'retUrl' parameter.
+  # with specifying the callback url on 'retUrl' and 'app' parameters.
   # e.g. https://accounts.topcoder-dev.com/login?retUrl=https%3A%2F%2Fsample.topcoder-dev.com%2F
-  vm.login = ->
-    accountsUrl = constants.ACCOUNTS_LOGIN_URL + '?retUrl=' + encodeURIComponent(constants.LOGIN_RETURN_URL) 
+  vm.login = (app) ->
+    accountsUrl = constants.ACCOUNTS_LOGIN_URL + '?app=' + app  + '&retUrl=' + encodeURIComponent(constants.LOGIN_RETURN_URL) 
     $log.info 'redirect to '　+ accountsUrl
     $window.location = accountsUrl
   
