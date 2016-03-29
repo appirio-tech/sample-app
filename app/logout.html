@@ -6,17 +6,27 @@
   <body>
     Logging out..
     <script type="text/javascript">
-      if(localStorage) {
-        localStorage.removeItem('auth0Jwt');
-        localStorage.removeItem('userJWTToken');
-        localStorage.removeItem('userRefreshJWTToken');
-        deleteCookie('tcjwt');
-        deleteCookie('tcsso');
-      }
-      
       function deleteCookie(cookie) {
+        console.log('Deleting '+cookie+' from Cookie.');
         var domain = location.hostname.substring(location.hostname.indexOf('.'));
         document.cookie = cookie + "=; path=/; domain=" + domain + "; expires=" + (new Date()).toGMTString()+"; ";
+      }
+      function deleteItem(key) {
+        if(localStorage) {
+          console.log('Deleting '+key+' from Storage.');
+          localStorage.removeItem(key);
+        }    
+      }
+      if(localStorage) {
+        // tc
+        deleteItem('appiriojwt');
+        deleteCookie('tcjwt');
+        deleteCookie('tcsso');
+        // connect
+        deleteItem('auth0Jwt');
+        deleteItem('userJWTToken');
+        deleteItem('userRefreshJWTToken');
+        deleteItem('v2SSOToken');
       }
     </script>
   </body>
