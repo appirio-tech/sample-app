@@ -10,7 +10,15 @@ if (process.env.ENV == 'DEV') {
   process.env.LOGOUT_RETURN_URL  = 'https://sample.topcoder-dev.com/'
   process.env.ACCOUNTS_LOGIN_URL = 'https://accounts.topcoder-dev.com/login'
   process.env.ACCOUNTS_LOGOUT_URL= 'https://accounts.topcoder-dev.com/logout'
-} else {
+}
+else if (process.env.ENV == 'QA') {
+  process.env.COOKIE_DOAMIN      = '.topcoder-qa.com'
+  process.env.LOGIN_RETURN_URL   = 'https://sample.topcoder-qa.com/'
+  process.env.LOGOUT_RETURN_URL  = 'https://sample.topcoder-qa.com/'
+  process.env.ACCOUNTS_LOGIN_URL = 'https://accounts.topcoder-qa.com/login'
+  process.env.ACCOUNTS_LOGOUT_URL= 'https://accounts.topcoder-qa.com/logout'
+}
+else {
   process.env.COOKIE_DOAMIN      = '.topcoder-dev.com'
   process.env.LOGIN_RETURN_URL   = 'http://local.sample.topcoder-dev.com:3100/'
   process.env.LOGOUT_RETURN_URL  = 'http://local.sample.topcoder-dev.com:3100/'
