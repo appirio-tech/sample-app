@@ -1,13 +1,14 @@
 'use strict'
 
+{ getToken } = require 'appirio-accounts-app'
+{ decodeToken } = require 'appirio-accounts-app/core/token.js'
+
 HomeController = (
+  $scope
   $log
-  $rootScope
   $window
   $location
-  $state
   $stateParams
-  $cookies
   constants
   AuthService
   TokenService) ->
@@ -15,8 +16,7 @@ HomeController = (
   vm = this
 
   # cehck if user is logged in  
-  vm.isLoggedIn = ->
-    AuthService.isLoggedIn()
+  vm.isLoggedIn = false
   
   # redirect to accounts.topcoder.com to log in to the system.
   # with specifying the callback url on 'retUrl' and 'app' parameters.
@@ -41,26 +41,28 @@ HomeController = (
   # - tcjwt: v2 jwt
   # - tcsso: sso token
   init = ->
-    if $stateParams.jwt
-      TokenService.setAppirioJWT $stateParams.jwt
-    # username in jwt
-    if AuthService.isLoggedIn()
-      vm.username = TokenService.decodeToken().handle
+    getToken().then (token) ->
+      $scope.$apply ->
+        vm.isLoggedIn = true
+        vm.username = decodeToken(token).handle
 
-    $state.go 'home'
+    # if $stateParams.jwt
+    #   TokenService.setAppirioJWT $stateParams.jwt
+    # # username in jwt
+    # if AuthService.isLoggedIn()
+    #   vm.username = TokenService.decodeToken().handle
+
     vm
   
   init()
   
 
 HomeController.$inject = [
+  '$scope'
   '$log'
-  '$rootScope'
   '$window'
   '$location'
-  '$state'
   '$stateParams'
-  '$cookies'
   'constants'
   'AuthService'
   'TokenService'

@@ -2,6 +2,6 @@ p
   | Hello {{ vm.username }}
 
 p
-  button.action(ng-click="vm.login('tc')", ng-show='!vm.isLoggedIn()') login to topcoder
-  button.action(ng-click="vm.login('connect')", ng-show='!vm.isLoggedIn()') login to connect
-  button.action(ng-click="vm.logout()", ng-show='vm.isLoggedIn()') logout
+  button.action(ng-click="vm.login('tc')", ng-show='!vm.isLoggedIn') login to topcoder
+  button.action(ng-click="vm.login('connect')", ng-show='!vm.isLoggedIn') login to connect
+  button.action(ng-click="vm.logout()", ng-show='vm.isLoggedIn') logout

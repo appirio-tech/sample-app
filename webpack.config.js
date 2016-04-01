@@ -22,8 +22,8 @@ else {
   process.env.COOKIE_DOAMIN      = '.topcoder-dev.com'
   process.env.LOGIN_RETURN_URL   = 'http://local.sample.topcoder-dev.com:3100/'
   process.env.LOGOUT_RETURN_URL  = 'http://local.sample.topcoder-dev.com:3100/'
-  process.env.ACCOUNTS_LOGIN_URL = 'http://local.topcoder-dev.com:3000/login'
-  process.env.ACCOUNTS_LOGOUT_URL= 'http://local.topcoder-dev.com:3000/logout'
+  process.env.ACCOUNTS_LOGIN_URL = 'http://local.accounts.topcoder-dev.com:8000/#login'
+  process.env.ACCOUNTS_LOGOUT_URL= 'http://local.accounts.topcoder-dev.com:8000/#logout'
 }
 
 config = require('appirio-tech-webpack-config')({
