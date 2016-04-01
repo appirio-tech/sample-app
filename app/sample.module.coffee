@@ -19,7 +19,7 @@ config = ($locationProvider, $stateProvider) ->
   # customer routes
   # Root
   states['home'] =
-    url         : '/?jwt'
+    url         : '/'
     title       : 'Home'
     controller  : 'HomeController as vm'
     template    : require('./views/home')()

@@ -1,6 +1,6 @@
 'use strict'
 
-{ getToken } = require 'appirio-accounts-app'
+{ getToken, logout } = require 'appirio-accounts-app'
 { decodeToken } = require 'appirio-accounts-app/core/token.js'
 
 HomeController = (
@@ -30,10 +30,16 @@ HomeController = (
   # with specifying the callback url on 'retUrl' parameter.
   # e.g. https://accounts.topcoder-dev.com/logout?retUrl=https%3A%2F%2Fsample.topcoder-dev.com%2F
   vm.logout = ->
+    logout().then () ->
+      $scope.$apply ->
+        vm.isLoggedIn = false
+        vm.username = ''
+    ###
     AuthService.logout()
     accountsUrl = constants.ACCOUNTS_LOGOUT_URL + '?retUrl=' + encodeURIComponent(constants.LOGOUT_RETURN_URL) 
     $log.info 'redirect to '　+ accountsUrl
     $window.location = accountsUrl
+    ###
   
   # handle callback
   # https://sample.topcoder-dev.com/?jwt=.....
