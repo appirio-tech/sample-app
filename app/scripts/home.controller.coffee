@@ -1,7 +1,9 @@
 'use strict'
 
-{ getToken, logout } = require 'appirio-accounts-app'
-{ decodeToken } = require 'appirio-accounts-app/core/token.js'
+require('../auth/auth.module.js')
+
+{ decodeToken, getFreshToken, logout  } = require 'tc-accounts'
+
 
 HomeController = (
   $scope
@@ -9,9 +11,7 @@ HomeController = (
   $window
   $location
   $stateParams
-  constants
-  AuthService
-  TokenService) ->
+  constants) ->
   
   vm = this
 
@@ -47,10 +47,11 @@ HomeController = (
   # - tcjwt: v2 jwt
   # - tcsso: sso token
   init = ->
-    getToken().then (token) ->
-      $scope.$apply ->
-        vm.isLoggedIn = true
-        vm.username = decodeToken(token).handle
+    getFreshToken().then (token) ->
+      if token
+        $scope.$apply ->
+          vm.isLoggedIn = true
+          vm.username = decodeToken(token).handle
 
     # if $stateParams.jwt
     #   TokenService.setAppirioJWT $stateParams.jwt
@@ -70,8 +71,6 @@ HomeController.$inject = [
   '$location'
   '$stateParams'
   'constants'
-  'AuthService'
-  'TokenService'
 ]
 
 angular.module('sample').controller 'HomeController', HomeController
