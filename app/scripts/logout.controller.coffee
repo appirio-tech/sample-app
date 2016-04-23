@@ -5,13 +5,16 @@ LogoutController = (
     $rootScope
     $location
     $state
+    $cookies
+    constants
     AuthService) ->
   
   vm = this
 
   init = ->
     $log.info "****** LOGGED OUT ******"
-    AuthService.logout()
+    $cookies.remove 'tcjwt', constants.COOKIE_SPEC.create()
+    $cookies.remove 'tcsso', constants.COOKIE_SPEC.create()
     $state.go 'home'
     vm
 
@@ -22,6 +25,8 @@ LogoutController.$inject = [
   '$rootScope'
   '$location'
   '$state'
+  '$cookies'
+  'constants'
   'AuthService'
 ]
 

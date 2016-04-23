@@ -6,10 +6,10 @@ __webpack_public_path__ = publicPath
 
 require 'angular'
 require 'angular-ui-router'
+require 'angular-cookies'
 
 require './sample.module'
 
-require 'appirio-tech-ng-api-services'
 require 'appirio-tech-ng-auth'
 
 requireContextFiles = (files) ->
